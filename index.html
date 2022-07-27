@@ -1,51 +1,73 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-full">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="https://unpkg.com/vue@3.2.29/dist/vue.global.js"></script>
-    <style>
-        html, body {
-             height: 100%;
-        }
-        body {
-            display: grid;
-            place-items: center;
-        }
-        .text-red {
-            color: red;
-        }
-        .text-green {
-            color: green;
-        }
-
-    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
+<body class="h-full grid place-items-center">
     <div id="app">
-        <button :class="active ? 'text-green' : 'text-red' " @click="toggle">Click Me</button>
+        <section v-show="inProgressAssignments.length">
+            <h6 class="font-bold mb-2">In Progress</h6>
+            <ul>
+                <li v-for="assignment in inProgressAssignments" :key="assignment.id">
+                    <label>
+                        {{ assignment.name }}
+                        <input type="checkbox" v-model="assignment.complete">
+                    </label>
+                </li>
+            </ul>
+        </section>
+        
+        <section v-show="completedAssignments.length" class="mt-5">
+            <h6 class="font-bold mb-2">Completed</h6>
+            <ul>
+                <li v-for="assignment in completedAssignments" :key="assignment.id">
+                    <label>
+                        {{ assignment.name }}
+                        <input type="checkbox" v-model="assignment.complete">
+                    </label>
+                </li>
+            </ul>
+        </section>
     </div>
     <script>
-        Vue.createApp({
+        let app = {
             data() {
                 return {
-                    greeting: 'Hello World',
-                    active: false
-                };
-            },
-            methods: {
-                toggle() {
-                    this.active = ! this.active
+                    assignments: [
+                        {
+                            'id' : 1,
+                            'name' : 'Finish Task',
+                            'complete': false
+                        },
+                        {
+                            'id' : 2,
+                            'name' : 'Complete Homework',
+                            'complete': false
+                        },
+                        {
+                            'id' : 3,
+                            'name' : 'Complete Assignments',
+                            'complete': false
+                        }
+                    ],
+                    completedAssignemnts: []
                 }
             },
-            mounted() {
-                setTimeout(() => {
-                    this.greeting = 'changed'
-                }, 3000)
+            computed: {
+                inProgressAssignments() {
+                    return this.assignments.filter(a => ! a.complete)
+                },
+                completedAssignments() {
+                    return this.assignments.filter(a => a.complete)
+                }
             }
-        }).mount('#app');
+        }
+        Vue.createApp(app).mount('#app');
     </script>
 </body>
 </html>
