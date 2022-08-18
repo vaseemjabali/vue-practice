@@ -1,0 +1,29 @@
+{
+    "assignments": [
+        {
+            "id" : 1,
+            "name" : "Finish Task",
+            "complete": false,
+            "tag" : "math"
+        },
+        {
+            "id" : 2,
+            "name" : "Complete Homework",
+            "complete": false,
+            "tag" : "math"
+    
+        },
+        {
+            "id" : 3,
+            "name" : "Complete Assignments",
+            "complete": false,
+            "tag" : "science"
+        },
+        {
+            "id" : 4,
+            "name" : "Vue Practice",
+            "complete": true,
+            "tag" : "programming"
+        }
+    ]
+}
